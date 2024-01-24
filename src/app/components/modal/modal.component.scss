@@ -1,0 +1,58 @@
+.container {
+  background: rgba(0, 0, 0, 0.5);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  width: 30vw;
+  background-color: white;
+  border-radius: 10px;
+}
+
+div.body p {
+  padding: 0 5px 0 5px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  word-wrap: break-word;
+  text-align: justify;
+}
+
+div.body {
+  border-bottom: solid 1px #d4d4d4;
+}
+
+.footer {
+  text-align: center;
+}
+
+.btns {
+  height: 50px;
+  width: 50%;
+  float: left;
+  padding: 10px 0 10px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btns button {
+  width: 80%;
+  font-weight: bolder;
+  padding: 15px 0 15px 0;
+  font-size: 1rem;
+  border-radius: 10px;
+  border: none;
+}
+
+.btn-confirmar {
+  background-color: yellow;
+}

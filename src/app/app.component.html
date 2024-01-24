@@ -1,9 +1,10 @@
+<app-loading *ngIf="showLoading()" />
+<app-modal *ngIf="showModal()" />
 <div class="container">
   <header>
     <h1>Header Fijo</h1>
   </header>
   <div class="content">
-    <app-contextual-menu></app-contextual-menu>
     <router-outlet></router-outlet>
   </div>
 </div>
