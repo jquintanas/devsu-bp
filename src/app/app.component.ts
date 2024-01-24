@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { BancaService } from './core/services/banca.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'devsu';
+  constructor(private bancaService: BancaService) {
+    this.bancaService.getAllProductos().subscribe(
+      {
+        next: e => {
+          console.log(e);
+        },
+        error: err => {
+          console.log(err);
+        }
+      }
+    )
+  }
 }

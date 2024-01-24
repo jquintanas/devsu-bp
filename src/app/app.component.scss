@@ -1,0 +1,24 @@
+.container {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  background-color: #d4d4d6;
+}
+
+.content {
+  margin-top: 10vh;
+  width: 90%;
+}
+
+header {
+  width: 100%;
+  background-color: white;
+  text-align: center;
+  height: 15vh;
+  padding: 0;
+}
