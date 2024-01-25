@@ -70,10 +70,10 @@ export class AddComponent implements OnInit {
         return "Este campo es requerido.";
       }
       if (control.errors['minlength'] != null) {
-        return `Se requieren mínimo ${control.errors['minlength'].requiredLength}.`;
+        return `Se requieren mínimo ${control.errors['minlength'].requiredLength} caracteres.`;
       }
       if (control.errors['maxlength'] != null) {
-        return `Se requieren máximo ${control.errors['maxlength'].requiredLength}.`;
+        return `Se requieren máximo ${control.errors['maxlength'].requiredLength} caracteres.`;
       }
       if (control.errors['pattern'] != null) {
         return "No es una URL válida.";

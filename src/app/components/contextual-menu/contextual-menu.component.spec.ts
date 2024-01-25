@@ -18,4 +18,18 @@ describe('ContextualMenuComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('click editar', () => {
+    let value = false;
+    component.editarEvent.subscribe(val => value = val);
+    component.editarRegistro();
+    expect(value).toBe(true);
+  });
+
+  it('click eliminar', () => {
+    let value = false;
+    component.eliminarEvent.subscribe(val => value = val);
+    component.deleteRegistro();
+    expect(value).toBe(true);
+  });
 });

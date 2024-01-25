@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ModalComponent } from './modal.component';
+import { CoreService } from 'src/app/core/services/core.service';
 
 describe('ModalComponent', () => {
   let component: ModalComponent;
@@ -17,5 +18,12 @@ describe('ModalComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('close modal', () => {
+    const core = TestBed.inject(CoreService);
+    const coreSpy = spyOn(core, 'hideModal');
+    component.cancelModal();
+    expect(coreSpy).toHaveBeenCalled();
   });
 });

@@ -20,23 +20,23 @@ export class BancaService {
     return this.http.post(environment.paths.productos, body).pipe(take(1));
   }
 
-  public updateProducto(body: ProductoFinancieroRequest) {
-    return this.http.put(environment.paths.productos, body).pipe(take(1));
-  }
+  // public updateProducto(body: ProductoFinancieroRequest) {
+  //   return this.http.put(environment.paths.productos, body).pipe(take(1));
+  // }
 
-  public deleteProducto(id: string) {
-    return this.http.delete(environment.paths.productos,
-      {
-        params: {
-          id
-        }
-      }
-    ).pipe(take(1));
-  }
+  // public deleteProducto(id: string) {
+  //   return this.http.delete(environment.paths.productos,
+  //     {
+  //       params: {
+  //         id
+  //       }
+  //     }
+  //   ).pipe(take(1));
+  // }
 
   public verificarId(id: string) {
     const params = { id };
-    return this.http.get(environment.paths.verificacion, { params }).pipe(take(1));
+    return this.http.get<boolean>(environment.paths.verificacion, { params }).pipe(take(1));
   }
   //#endregion
 }

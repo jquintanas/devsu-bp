@@ -26,8 +26,7 @@ export class AppComponent implements OnInit {
       {
         next: val => {
           this.showLoading.set(val);
-        },
-        error: err => console.error(err)
+        }
       }
     );
 
@@ -35,8 +34,7 @@ export class AppComponent implements OnInit {
       {
         next: val => {
           this.showModal.set(val);
-        },
-        error: err => console.error(err)
+        }
       }
     );
   }

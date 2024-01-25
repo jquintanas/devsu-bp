@@ -26,7 +26,6 @@ export class HomeComponent implements OnInit {
     this.bancoService.getAllProductos().subscribe(
       {
         next: resp => {
-          console.log(resp);
           this.productos.set(resp);
           this.core.hideLoading();
         },
