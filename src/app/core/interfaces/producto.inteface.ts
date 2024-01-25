@@ -11,7 +11,7 @@ export interface ProductoFinancieroListar extends ProductoFinanciero {
   date_revision: Date;
 }
 
-export interface ProductoFinancieroRequest {
+export interface ProductoFinancieroRequest extends ProductoFinanciero {
   date_release: string;
   date_revision: string;
 }

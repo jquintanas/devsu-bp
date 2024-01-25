@@ -5,7 +5,7 @@ table {
 
 .t-content {
   font-size: small;
-  border-bottom: solid 2px #d4d4d6;
+  border-bottom: solid 2px var(--secondary-color);
 }
 
 tbody tr:last-child td {
@@ -98,6 +98,7 @@ thead tr th:nth-child(5) {
 .footer> :nth-child(2) {
   width: 50%;
   float: left;
+  height: 10px;
 }
 
 .div-select {
@@ -109,4 +110,9 @@ thead tr th:nth-child(5) {
   font-size: xx-small;
   text-align: center;
   padding: 3px;
+}
+
+.sin-datos {
+  text-align: center;
+  padding-top: 20px;
 }

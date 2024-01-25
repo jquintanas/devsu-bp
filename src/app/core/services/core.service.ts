@@ -22,7 +22,7 @@ export class CoreService {
   }
 
   public hideLoading() {
-    return this.loading.next(false);
+    this.loading.next(false);
   }
 
   public subModal() {

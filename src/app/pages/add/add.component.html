@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="content">
+    <div class="title">
+      <h2>Formulario de registro</h2>
+    </div>
+    <div class="form">
+      <form [formGroup]="form">
+        <div class="input">
+          <span><label for="id">ID</label></span>
+          <input [ngClass]="{'error': getErrorMessage('id')}" type="text" name="id" formControlName="id">
+          <span class="error" *ngIf="getErrorMessage('id') != ''">{{getErrorMessage('id')}}</span>
+        </div>
+        <div class="input">
+          <span><label for="name">Nombre</label></span>
+          <input type="text" name="name" formControlName="name">
+          <span class="error" *ngIf="getErrorMessage('name') != ''">{{getErrorMessage('name')}}</span>
+        </div>
+        <div class="input">
+          <span><label for="descripcion">Descripción</label></span>
+          <input type="text" name="descripcion" formControlName="description">
+          <span class="error" *ngIf="getErrorMessage('description') != ''">{{getErrorMessage('description')}}</span>
+        </div>
+        <div class="input">
+          <span><label for="logo">Logo</label></span>
+          <input type="text" name="logo" formControlName="logo">
+          <span class="error" *ngIf="getErrorMessage('logo') != ''">{{getErrorMessage('logo')}}</span>
+        </div>
+        <div class="input">
+          <span><label for="liberacion">Fecha Liberación</label></span>
+          <input type="date" name="liberacion" formControlName="liberacion">
+          <span class="error" *ngIf="getErrorMessage('liberacion') != ''">{{getErrorMessage('liberacion')}}</span>
+        </div>
+        <div class="input">
+          <span><label for="revision">Fecha Revisión</label></span>
+          <input type="date" name="revision" formControlName="verificacion">
+          <span class="error"></span>
+        </div>
+      </form>
+    </div>
+    <div class="footer">
+      <button class="reiniciar" (click)="reiniciar()">Reiniciar</button>
+      <button class="enviar" [disabled]="!form.valid" (click)="enviar()">Enviar</button>
+    </div>
+  </div>
+</div>

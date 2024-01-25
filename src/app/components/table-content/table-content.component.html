@@ -7,33 +7,38 @@
         <th class="t-headers t-content t-align-center">Descripción</th>
         <th class="t-headers t-content t-align-left pl-0">Fecha de Liberación</th>
         <th class="t-headers t-content t-align-left pl-0">Fecha de Reestructuración</th>
+        <th class="t-headers t-content"></th>
       </tr>
     </thead>
-    <tbody>
+    <tbody *ngIf="datos.length == 0">
       <tr>
+        <td colspan="6" class="sin-datos">No hay datos a mostrar.</td>
+      </tr>
+    </tbody>
+    <tbody *ngIf="datos.length > 0">
+      <tr *ngFor="let producto of datos">
         <td class="t-data t-content t-align-center">
-          <img loading="lazy" src="https://placehold.co/300x400" alt="Logo del producto"
+          <img loading="lazy" [src]="producto.logo" alt="Logo del producto"
             onerror="if (this.src != 'assets/img/jk-placeholder-image.jpg') this.src = 'assets/img/jk-placeholder-image.jpg';">
         </td>
         <td class="t-data t-content t-align-center">
-          <span>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure rem quidem tenetur, autem iusto repellat
-            iste id nulla asperiores error.</span>
+          <span>{{producto.name}}</span>
         </td>
-        <td class="t-data t-content t-align-left"><span>Lorem, ipsum dolor sit amet consectetur
-            adipisicing elit.
-            Praesentium labore totam aliquid iste dicta nobis veniam maiores beatae voluptatibus fugiat non sunt ab id
-            nisi fuga, corporis ea asperiores illum a cupiditate voluptatum veritatis quia! Reiciendis nulla, id illum
-            dignissimos magnam distinctio. Quod tempore laborum doloribus esse, laboriosam consequatur minus architecto
-            incidunt non natus eligendi sint voluptatum? Explicabo, ab expedita.</span></td>
-        <td class="t-data t-content t-align-left"><span>Fecha de Liberación</span></td>
-        <td class="t-data t-content t-align-left"><span>Fecha de Reestructuración</span></td>
+        <td class="t-data t-content t-align-left">
+          <span>{{producto.description}}</span>
+        </td>
+        <td class="t-data t-content t-align-left"><span>{{producto.date_release | date:'dd/MM/yyyy'}}</span></td>
+        <td class="t-data t-content t-align-left"><span>{{producto.date_revision | date:'dd/MM/yyyy'}}</span></td>
+        <td> <app-contextual-menu /> </td>
       </tr>
     </tbody>
   </table>
 </div>
 <div class="footer">
   <div class="div-total">{{datos.length}} Resultados</div>
-  <div class="paginacion">paginas</div>
+  <div class="paginacion">
+    <span *ngIf="datos.length > 0">paginas</span>
+  </div>
   <div class="div-select">
     <select>
       <option value="5">5</option>

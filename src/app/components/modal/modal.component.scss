@@ -27,7 +27,7 @@ div.body p {
 }
 
 div.body {
-  border-bottom: solid 1px #d4d4d4;
+  border-bottom: solid 1px var(--secondary-color);
 }
 
 .footer {
@@ -54,5 +54,5 @@ div.body {
 }
 
 .btn-confirmar {
-  background-color: yellow;
+  background-color: var(--primary-color);
 }

@@ -1,6 +1,7 @@
 <div class="search">
-  <input type="search" name="search">
+  <input type="search" class="search" name="search" placeholder="Search">
+  <button (click)="addProduct()"> Agregar </button>
 </div>
 <div class="table">
-  <app-table-content />
+  <app-table-content [datos]="productos()" />
 </div>

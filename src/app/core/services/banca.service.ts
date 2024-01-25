@@ -17,11 +17,11 @@ export class BancaService {
   }
 
   public insertProducto(body: ProductoFinancieroRequest) {
-    return this.http.post(environment.paths.productos, { body }).pipe(take(1));
+    return this.http.post(environment.paths.productos, body).pipe(take(1));
   }
 
   public updateProducto(body: ProductoFinancieroRequest) {
-    return this.http.put(environment.paths.productos, { body }).pipe(take(1));
+    return this.http.put(environment.paths.productos, body).pipe(take(1));
   }
 
   public deleteProducto(id: string) {
