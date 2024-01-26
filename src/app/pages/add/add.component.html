@@ -27,7 +27,8 @@
         </div>
         <div class="input">
           <span><label for="liberacion">Fecha Liberación</label></span>
-          <input type="date" name="liberacion" formControlName="liberacion">
+          <input type="date" [min]="minDay" name="liberacion" formControlName="liberacion"
+            (change)="updateFechaVerificacion($event)">
           <span class="error" *ngIf="getErrorMessage('liberacion') != ''">{{getErrorMessage('liberacion')}}</span>
         </div>
         <div class="input">

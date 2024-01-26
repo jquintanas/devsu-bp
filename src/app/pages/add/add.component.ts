@@ -13,6 +13,7 @@ import { CoreService } from 'src/app/core/services/core.service';
 export class AddComponent implements OnInit {
   //#region public variables
   public form!: FormGroup;
+  public minDay = "";
   //#endregion
 
   constructor(
@@ -81,6 +82,20 @@ export class AddComponent implements OnInit {
     }
     return "";
   }
+
+  public updateFechaVerificacion(event: any) {
+    const stringDate = event.target.value.split("-");
+    if (stringDate.length == 3) {
+      const anio = parseInt(stringDate[0], 10);
+      const mes = parseInt(stringDate[1], 10) - 1;
+      const dia = parseInt(stringDate[2], 10);
+      const nextDate = new Date(anio, mes, dia);
+      nextDate.setFullYear(nextDate.getFullYear() + 1);
+      this.form.get("verificacion")?.setValue(this.formatDateToString(nextDate));
+      return;
+    }
+    this.form.get("verificacion")?.setValue("");
+  }
   //#endregion
 
   //#region private methods
@@ -100,11 +115,12 @@ export class AddComponent implements OnInit {
         id: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(10)]),
         name: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]),
         description: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(200)]),
-        logo: new FormControl('', [Validators.required, Validators.pattern(/^https?:\/\/\S+$/)]),
+        logo: new FormControl('', [Validators.required, Validators.pattern(/^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})+([/\w .-]*)*\/?$/)]),
         liberacion: new FormControl(this.formatDateToString(now), [Validators.required]),
         verificacion: new FormControl({ value: this.formatDateToString(nextDate), disabled: true }, [Validators.required])
       }
     );
+    this.minDay = this.formatDateToString(now);
   }
 
   private insertProducto(body: ProductoFinancieroRequest) {
