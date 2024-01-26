@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { ProductoFinancieroListar, ProductoFinancieroRequest } from 'src/app/core/interfaces/producto.inteface';
 import { BancaService } from 'src/app/core/services/banca.service';
 import { CoreService } from 'src/app/core/services/core.service';
@@ -94,6 +94,8 @@ export class AddComponent implements OnInit {
             }
             this.insertProducto(body);
             return;
+          } else {
+            this.core.showAlert("El id ingresado ya ha sido registrado.")
           }
           this.core.hideLoading();
         },
@@ -165,7 +167,7 @@ export class AddComponent implements OnInit {
         id: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(10)]),
         name: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]),
         description: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(200)]),
-        logo: new FormControl('', [Validators.required, Validators.pattern(/^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})+([/\w .-]*)*\/?$/)]),
+        logo: new FormControl('', [Validators.required, Validators.pattern(/^(https?:\/\/(?:www\.(?!www)|[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.(?!www)|[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})))$/)]),
         liberacion: new FormControl(this.formatDateToString(now), [Validators.required]),
         verificacion: new FormControl({ value: this.formatDateToString(nextDate), disabled: true }, [Validators.required])
       }
@@ -186,7 +188,7 @@ export class AddComponent implements OnInit {
         id: new FormControl({ value: this.dataForm.id, disabled: true }, [Validators.required, Validators.minLength(3), Validators.maxLength(10)]),
         name: new FormControl(this.dataForm.name, [Validators.required, Validators.minLength(5), Validators.maxLength(100)]),
         description: new FormControl(this.dataForm.description, [Validators.required, Validators.minLength(10), Validators.maxLength(200)]),
-        logo: new FormControl(this.dataForm.logo, [Validators.required, Validators.pattern(/^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})+([/\w .-]*)*\/?$/)]),
+        logo: new FormControl(this.dataForm.logo, [Validators.required, Validators.pattern(/^(https?:\/\/(?:www\.(?!www)|[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.(?!www)|[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})))$/)]),
         liberacion: new FormControl(nowDate, [Validators.required]),
         verificacion: new FormControl({ value: nextDate, disabled: true }, [Validators.required])
       }

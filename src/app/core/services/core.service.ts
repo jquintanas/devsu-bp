@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, take } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { ModalDismiss } from '../interfaces/modal.interface';
 
 @Injectable({

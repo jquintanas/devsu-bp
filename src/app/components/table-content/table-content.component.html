@@ -1,5 +1,6 @@
 <div class="container">
   <table>
+    <caption style="display: none">Datos</caption>
     <thead>
       <tr>
         <th class="t-headers t-content t-align-center">Logo</th>
@@ -43,7 +44,6 @@
     <button *ngFor="let d of dataPaginada;let i = index;" [ngClass]="{'active': i == paginaActual}"
       (click)="changePage(i)">{{i +
       1}}</button>
-    <!-- <span *ngIf="datos.length > 0">paginas</span> -->
   </div>
   <div class="div-select">
     <select (change)="paginar($event)">

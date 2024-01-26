@@ -8,7 +8,6 @@ import { TokenInterceptor } from './core/interceptor/token.interceptor';
 import { ComponentsModule } from './components/components.module';
 import { AddComponent } from './pages/add/add.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { CommonModule } from "@angular/common";
 
 @NgModule({
   declarations: [

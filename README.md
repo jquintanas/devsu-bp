@@ -1,27 +1,36 @@
-# Devsu
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.1.
+# Angular BP
 
-## Development server
+Proyecto para validar los conocimientos en Angular, este proyecto fue solicitado como parte de un proceso de selección en la empresa DEVSU.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+El mismo está desarrollado con Angular 16 y empleando el uso de signals y los últimos estandares de la versión utilizada, se tomo en cuenta rendimiento, usabilidad y los requerimientos proporcionados.
 
-## Code scaffolding
+No se uso ningún componente pre fabricado ni librerías adicionales pero si se utilizo un generador de animación de precarga. 
+## Environment Variables
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Dentro de la ruta **src/nvironments/** se encuentra la configuración de variables utilizadas para el proyecto, si se requiere hacer alguna actualización se debe hacer en estos archivos dependiendo del ambiente.
 
-## Build
+* authorId -> valor del header **authorId** usado en los request.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+* servidor -> Ruta base del servidor donde están alojados los servicios.
 
-## Running unit tests
+* paths
+    * productos -> ruta del endPoint de productos.
+    * verificacion -> ruta de verificación de id de producto.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+## Installation
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Se requiere tener instalado **node@18.16.0** y **angular@16.2.12**
 
-## Further help
+Pasos a seguir para la instalación
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```bash
+  npm install my-project
+  cd my-project
+```
+    
+## Authors
+
+- [@jquintanas](https://github.com/jquintanas)
+

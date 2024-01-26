@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, inject, signal } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { take } from 'rxjs';
 import { ProductoFinancieroListar } from 'src/app/core/interfaces/producto.inteface';
