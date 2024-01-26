@@ -12,6 +12,7 @@ import { CoreService } from 'src/app/core/services/core.service';
 export class HomeComponent implements OnInit {
   //#region public variables
   public productos = signal<ProductoFinancieroListar[]>([]);
+  public terminoBusqueda = "";
   //#endregion
 
   constructor(
@@ -31,6 +32,7 @@ export class HomeComponent implements OnInit {
         },
         error: err => {
           console.error(err);
+          this.core.showAlert(JSON.stringify(err.error))
           this.core.hideLoading();
         }
       }

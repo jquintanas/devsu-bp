@@ -1,6 +1,5 @@
 <div class="container">
   <table>
-    <caption>Tabla de datos</caption>
     <thead>
       <tr>
         <th class="t-headers t-content t-align-center">Logo</th>
@@ -17,7 +16,7 @@
       </tr>
     </tbody>
     <tbody *ngIf="datos.length > 0">
-      <tr *ngFor="let producto of datos">
+      <tr *ngFor="let producto of dataPaginada[paginaActual]">
         <td class="t-data t-content t-align-center">
           <img loading="lazy" [src]="producto.logo" alt="Logo del producto"
             onerror="if (this.src != 'assets/img/jk-placeholder-image.jpg') this.src = 'assets/img/jk-placeholder-image.jpg';">
@@ -36,12 +35,17 @@
   </table>
 </div>
 <div class="footer">
-  <div class="div-total">{{datos.length}} Resultados</div>
+  <div class="div-total" *ngIf="datos.length > 0">{{paginaActual >= dataPaginada.length ? 0 :
+    dataPaginada[paginaActual].length}} Resultados</div>
+  <div class="div-total" *ngIf="datos.length == 0">0 Resultados</div>
   <div class="paginacion">
-    <span *ngIf="datos.length > 0">paginas</span>
+    <button *ngFor="let d of dataPaginada;let i = index;" [ngClass]="{'active': i == paginaActual}"
+      (click)="changePage(i)">{{i +
+      1}}</button>
+    <!-- <span *ngIf="datos.length > 0">paginas</span> -->
   </div>
   <div class="div-select">
-    <select>
+    <select (change)="paginar($event)">
       <option value="5">5</option>
       <option value="10">10</option>
       <option value="20">20</option>

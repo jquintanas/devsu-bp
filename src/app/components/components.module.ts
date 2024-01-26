@@ -4,6 +4,7 @@ import { ContextualMenuComponent } from './contextual-menu/contextual-menu.compo
 import { TableContentComponent } from './table-content/table-content.component';
 import { LoadingComponent } from './loading/loading.component';
 import { ModalComponent } from './modal/modal.component';
+import { AlertComponent } from './alert/alert.component';
 
 
 
@@ -12,7 +13,8 @@ import { ModalComponent } from './modal/modal.component';
     ContextualMenuComponent,
     TableContentComponent,
     LoadingComponent,
-    ModalComponent
+    ModalComponent,
+    AlertComponent
   ],
   imports: [
     CommonModule
@@ -20,7 +22,8 @@ import { ModalComponent } from './modal/modal.component';
   exports: [
     TableContentComponent,
     LoadingComponent,
-    ModalComponent
+    ModalComponent,
+    AlertComponent
   ]
 })
 export class ComponentsModule { }

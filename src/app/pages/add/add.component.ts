@@ -54,6 +54,7 @@ export class AddComponent implements OnInit {
         error: err => {
           console.log(err);
           this.core.hideLoading();
+          this.core.showAlert("Ocurrió un error al validar su ID.")
         }
       }
     );
@@ -119,6 +120,7 @@ export class AddComponent implements OnInit {
         error: err => {
           console.log(err);
           this.core.hideLoading();
+          this.core.showAlert("Error al ingresar el producto.")
         }
       }
     );

@@ -45,5 +45,16 @@ export class CoreService {
   public clearModalState() {
     this.modalData.next(undefined);
   }
+
+  public showAlert(message: string) {
+    const div: any = document.getElementById("snackbar");
+    if (div) {
+      div.classList = "show"
+      div.innerText = message;
+      setTimeout(() => {
+        div.className = div.className.replace("show", "");
+      }, 4000);
+    }
+  }
   //#endregion
 }

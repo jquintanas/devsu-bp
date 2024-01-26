@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, signal } from '@angular/core';
 import { ProductoFinancieroListar } from 'src/app/core/interfaces/producto.inteface';
 
 @Component({
@@ -6,9 +6,74 @@ import { ProductoFinancieroListar } from 'src/app/core/interfaces/producto.intef
   templateUrl: './table-content.component.html',
   styleUrls: ['./table-content.component.scss']
 })
-export class TableContentComponent {
+export class TableContentComponent implements OnChanges {
   //#region angular communication component
   @Input("datos") datos: ProductoFinancieroListar[] = [];
+  @Input("search") search = "";
+  //#endregion
+
+  //#region public variables
+  public pagina = 5;
+  public dataPaginada: any[][] = [];
+  public paginaActual = 0;
+  //#endregion
+
+  //#region angular life cycle
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes["datos"] && changes["datos"].currentValue.length > 0) {
+      this.updateTable();
+    } else if (changes["search"]) {
+      this.searchData();
+    }
+  }
+  //#endregion
+
+  //#region public methods
+  public paginar(event: any) {
+    this.pagina = Number(event.target.value);
+    if (this.search.trim().length == 0) {
+      this.updateTable();
+      return;
+    }
+    this.updateTableFilter()
+  }
+
+  public changePage(page: number) {
+    this.paginaActual = page;
+  }
+
+  public searchData() {
+    if (this.search.trim().length == 0) {
+      this.updateTable();
+      return;
+    }
+    this.updateTableFilter(true);
+  }
+  //#endregion
+
+  //#region private methods
+  private separarArray(data: any[], size: number) {
+    const result = [];
+    for (let i = 0; i < data.length; i += size) {
+      result.push(data.slice(i, i + size));
+    }
+    return result;
+  }
+
+  private updateTable() {
+    this.dataPaginada = this.separarArray(this.datos, this.pagina);
+    if (this.paginaActual >= this.dataPaginada.length) {
+      this.paginaActual = 0;
+    }
+  }
+
+  private updateTableFilter(reset = false) {
+    const data = this.datos.filter(e => e.name.toUpperCase().includes(this.search.toUpperCase()));
+    this.dataPaginada = this.separarArray(data, this.pagina);
+    if (reset) {
+      this.paginaActual = 0;
+    }
+  }
   //#endregion
 
 }

@@ -22,7 +22,7 @@ tbody tr:last-child td {
 
 .t-headers {
   font-weight: bold;
-  padding: 10px;
+  padding: 20px 10px 20px 10px;
 }
 
 .t-data {
@@ -85,7 +85,7 @@ thead tr th:nth-child(5) {
 .footer {
   width: 100%;
   background-color: white;
-  height: 3vh;
+  height: 30px;
   padding: 5px 0 5px 5px;
 }
 
@@ -98,7 +98,27 @@ thead tr th:nth-child(5) {
 .footer> :nth-child(2) {
   width: 50%;
   float: left;
-  height: 10px;
+  overflow-x: scroll;
+  height: 50px;
+  display: flex;
+}
+
+.footer> :nth-child(2)::-webkit-scrollbar {
+  background-color: transparent;
+}
+
+.footer> :nth-child(2) button {
+  min-width: 30px;
+  height: 30px;
+  margin-right: 5px;
+  padding: 0px;
+  background-color: transparent;
+  border: solid 2px var(--secondary-color);
+  border-radius: 5px;
+}
+
+.active {
+  border-color: var(--primary-color) !important;
 }
 
 .div-select {

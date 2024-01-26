@@ -1,7 +1,7 @@
 <div class="search">
-  <input type="search" class="search" name="search" placeholder="Search">
+  <input [(ngModel)]="terminoBusqueda" type="search" class="search" name="search" placeholder="Nombre...">
   <button (click)="addProduct()"> Agregar </button>
 </div>
 <div class="table">
-  <app-table-content [datos]="productos()" />
+  <app-table-content [datos]="productos()" [search]="terminoBusqueda" />
 </div>
