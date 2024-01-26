@@ -64,7 +64,6 @@ export class AddComponent implements OnInit {
       {
         next: () => {
           this.core.showAlert("Se actualizo el producto correctamente.");
-          this.core.hideLoading();
           this.router.navigateByUrl("/home");
         },
         error: err => {
@@ -201,7 +200,7 @@ export class AddComponent implements OnInit {
     this.banca.insertProducto(body).subscribe(
       {
         next: () => {
-          this.core.hideLoading();
+          this.core.showAlert("Se agrego el producto con éxito.")
           this.router.navigateByUrl("/home");
         },
         error: err => {

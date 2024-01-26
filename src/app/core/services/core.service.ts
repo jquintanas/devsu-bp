@@ -11,7 +11,7 @@ export class CoreService {
   //#endregion
 
   //#region private variables
-  private loading = new BehaviorSubject(false);
+  private loading = new BehaviorSubject(true);
   private modal = new BehaviorSubject(false);
   private modalData = new BehaviorSubject<ModalDismiss | undefined>(undefined);
   //#endregion
