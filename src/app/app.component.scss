@@ -21,4 +21,12 @@ header {
   text-align: center;
   height: 15vh;
   padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+img {
+  width: 20%;
+  height: auto;
 }

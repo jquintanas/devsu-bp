@@ -1,5 +1,7 @@
-import { Component, Input, OnChanges, SimpleChanges, signal } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, inject, signal } from '@angular/core';
 import { ProductoFinancieroListar } from 'src/app/core/interfaces/producto.inteface';
+import { BancaService } from 'src/app/core/services/banca.service';
+import { CoreService } from 'src/app/core/services/core.service';
 
 @Component({
   selector: 'app-table-content',
@@ -7,9 +9,15 @@ import { ProductoFinancieroListar } from 'src/app/core/interfaces/producto.intef
   styleUrls: ['./table-content.component.scss']
 })
 export class TableContentComponent implements OnChanges {
+  //#region angular injetions
+  private core = inject(CoreService);
+  private banca = inject(BancaService);
+  //#endregion
+
   //#region angular communication component
   @Input("datos") datos: ProductoFinancieroListar[] = [];
   @Input("search") search = "";
+  @Output("onRefresh") refresh = new EventEmitter<boolean>(false);
   //#endregion
 
   //#region public variables
@@ -21,7 +29,7 @@ export class TableContentComponent implements OnChanges {
   //#region angular life cycle
   ngOnChanges(changes: SimpleChanges) {
     if (changes["datos"] && changes["datos"].currentValue.length > 0) {
-      this.updateTable();
+      this.updateTable(true);
     } else if (changes["search"]) {
       this.searchData();
     }
@@ -49,6 +57,24 @@ export class TableContentComponent implements OnChanges {
     }
     this.updateTableFilter(true);
   }
+
+  public deleteItem(producto: ProductoFinancieroListar) {
+    this.core.tituloProducto = producto.name;
+    this.core.showModal();
+    const sub: any = this.core.subModalData().subscribe(
+      {
+        next: data => {
+          if (data) {
+            if (data.status == "Ok") {
+              this.deleteItemService(producto.id);
+            }
+            sub.unsubscribe();
+          }
+        },
+        error: () => sub.unsubscribe()
+      }
+    );
+  }
   //#endregion
 
   //#region private methods
@@ -60,9 +86,9 @@ export class TableContentComponent implements OnChanges {
     return result;
   }
 
-  private updateTable() {
+  private updateTable(reset = false) {
     this.dataPaginada = this.separarArray(this.datos, this.pagina);
-    if (this.paginaActual >= this.dataPaginada.length) {
+    if (this.paginaActual >= this.dataPaginada.length || reset) {
       this.paginaActual = 0;
     }
   }
@@ -73,6 +99,23 @@ export class TableContentComponent implements OnChanges {
     if (reset) {
       this.paginaActual = 0;
     }
+  }
+
+  private deleteItemService(id: string) {
+    this.banca.deleteProducto(id).subscribe(
+      {
+        next: () => {
+          this.core.hideModal();
+          this.core.showAlert("Registro eliminado con éxito.");
+          this.refresh.next(true);
+        },
+        error: (err) => {
+          console.error(err);
+          this.core.hideModal();
+          this.core.showAlert("No se pudo eliminar el registro.");
+        }
+      }
+    );
   }
   //#endregion
 

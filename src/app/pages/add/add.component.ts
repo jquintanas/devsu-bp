@@ -36,7 +36,6 @@ export class AddComponent implements OnInit {
     this.banca.verificarId(id).subscribe(
       {
         next: resp => {
-          console.log(resp);
           if (!resp) {
             const body: ProductoFinancieroRequest = {
               id,
@@ -52,7 +51,7 @@ export class AddComponent implements OnInit {
           this.core.hideLoading();
         },
         error: err => {
-          console.log(err);
+          console.error(err);
           this.core.hideLoading();
           this.core.showAlert("Ocurrió un error al validar su ID.")
         }
@@ -112,13 +111,12 @@ export class AddComponent implements OnInit {
     this.banca.insertProducto(body).subscribe(
       {
         next: resp => {
-          console.log(resp);
           this.buildForm();
           this.core.hideLoading();
           this.router.navigateByUrl("/home");
         },
         error: err => {
-          console.log(err);
+          console.error(err);
           this.core.hideLoading();
           this.core.showAlert("Error al ingresar el producto.")
         }

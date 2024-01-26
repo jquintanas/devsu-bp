@@ -1,13 +1,13 @@
 <div class="container">
   <div class="content">
     <div class="body">
-      <p>¿Estas seguro de eliminar el producto ------- ?</p>
+      <p>¿Estas seguro de eliminar el producto {{core.tituloProducto}} ?</p>
     </div>
     <div class="footer">
       <div class="btns">
         <button (click)="cancelModal()">Cancelar</button>
       </div>
-      <div class="btns">
+      <div class="btns" (click)="confirm()">
         <button class="btn-confirmar">Confirmar</button>
       </div>
     </div>

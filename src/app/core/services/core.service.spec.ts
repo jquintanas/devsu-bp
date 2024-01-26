@@ -58,10 +58,5 @@ describe('CoreService', () => {
       service.nextModalState(data);
       expect(service['modalData'].value).toEqual(data);
     });
-
-    it('clear data modal', () => {
-      service.clearModalState();
-      expect(service['modalData'].value).toBeUndefined();
-    });
   });
 });

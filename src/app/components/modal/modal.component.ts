@@ -7,11 +7,15 @@ import { CoreService } from 'src/app/core/services/core.service';
   styleUrls: ['./modal.component.scss']
 })
 export class ModalComponent {
-  constructor(private core: CoreService) { }
+  constructor(public core: CoreService) { }
 
   //#region public methods
   public cancelModal() {
     this.core.hideModal()
+  }
+
+  public confirm() {
+    this.core.nextModalState({ status: "Ok" });
   }
   //#endregion
 }

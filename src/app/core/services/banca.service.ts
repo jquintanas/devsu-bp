@@ -24,15 +24,16 @@ export class BancaService {
   //   return this.http.put(environment.paths.productos, body).pipe(take(1));
   // }
 
-  // public deleteProducto(id: string) {
-  //   return this.http.delete(environment.paths.productos,
-  //     {
-  //       params: {
-  //         id
-  //       }
-  //     }
-  //   ).pipe(take(1));
-  // }
+  public deleteProducto(id: string) {
+    return this.http.delete(environment.paths.productos,
+      {
+        params: {
+          id
+        },
+        responseType: "text"
+      }
+    ).pipe(take(1));
+  }
 
   public verificarId(id: string) {
     const params = { id };

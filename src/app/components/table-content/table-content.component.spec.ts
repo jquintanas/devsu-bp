@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TableContentComponent } from './table-content.component';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('TableContentComponent', () => {
   let component: TableContentComponent;
@@ -8,7 +9,8 @@ describe('TableContentComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [TableContentComponent]
+      declarations: [TableContentComponent],
+      imports: [HttpClientModule]
     });
     fixture = TestBed.createComponent(TableContentComponent);
     component = fixture.componentInstance;

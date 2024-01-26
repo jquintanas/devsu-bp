@@ -3,6 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { CoreService } from './core/services/core.service';
 import { of } from 'rxjs';
+import { ComponentsModule } from './components/components.module';
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -10,7 +11,7 @@ describe('AppComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
+      imports: [RouterTestingModule, ComponentsModule],
       declarations: [AppComponent]
     })
     fixture = TestBed.createComponent(AppComponent);

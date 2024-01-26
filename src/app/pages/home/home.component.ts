@@ -24,6 +24,7 @@ export class HomeComponent implements OnInit {
   //#region angular life cycle
   public ngOnInit() {
     this.core.showLoading();
+    this.terminoBusqueda = "";
     this.bancoService.getAllProductos().subscribe(
       {
         next: resp => {

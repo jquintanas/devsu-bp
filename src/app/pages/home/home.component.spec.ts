@@ -7,6 +7,7 @@ import { CoreService } from 'src/app/core/services/core.service';
 import { BancaService } from 'src/app/core/services/banca.service';
 import { of, throwError } from 'rxjs';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -15,7 +16,7 @@ describe('HomeComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [HomeComponent],
-      imports: [HttpClientModule, ComponentsModule],
+      imports: [HttpClientModule, ComponentsModule, FormsModule],
       providers: [{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }]
     });
     fixture = TestBed.createComponent(HomeComponent);

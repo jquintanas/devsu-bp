@@ -6,6 +6,10 @@ import { ModalDismiss } from '../interfaces/modal.interface';
   providedIn: 'root'
 })
 export class CoreService {
+  //#region public variables
+  public tituloProducto = "";
+  //#endregion
+
   //#region private variables
   private loading = new BehaviorSubject(false);
   private modal = new BehaviorSubject(false);
@@ -35,15 +39,15 @@ export class CoreService {
 
   public hideModal() {
     this.modal.next(false);
-    this.clearModalState();
+    this.modalData.next(undefined);
   }
 
   public nextModalState(data: ModalDismiss) {
     this.modalData.next(data);
   }
 
-  public clearModalState() {
-    this.modalData.next(undefined);
+  public subModalData() {
+    return this.modalData.asObservable();
   }
 
   public showAlert(message: string) {
