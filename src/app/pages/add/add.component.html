@@ -12,35 +12,38 @@
         </div>
         <div class="input">
           <span><label for="name">Nombre</label></span>
-          <input type="text" name="name" formControlName="name">
+          <input [ngClass]="{'error': getErrorMessage('name')}" type="text" name="name" formControlName="name">
           <span class="error" *ngIf="getErrorMessage('name') != ''">{{getErrorMessage('name')}}</span>
         </div>
         <div class="input">
           <span><label for="descripcion">Descripción</label></span>
-          <input type="text" name="descripcion" formControlName="description">
+          <input [ngClass]="{'error': getErrorMessage('description')}" type="text" name="descripcion"
+            formControlName="description">
           <span class="error" *ngIf="getErrorMessage('description') != ''">{{getErrorMessage('description')}}</span>
         </div>
         <div class="input">
           <span><label for="logo">Logo</label></span>
-          <input type="text" name="logo" formControlName="logo">
+          <input [ngClass]="{'error': getErrorMessage('logo')}" type="text" name="logo" formControlName="logo">
           <span class="error" *ngIf="getErrorMessage('logo') != ''">{{getErrorMessage('logo')}}</span>
         </div>
         <div class="input">
           <span><label for="liberacion">Fecha Liberación</label></span>
-          <input type="date" [min]="minDay" name="liberacion" formControlName="liberacion"
-            (change)="updateFechaVerificacion($event)">
+          <input [ngClass]="{'error': getErrorMessage('liberacion')}" type="date" [min]="minDay" name="liberacion"
+            formControlName="liberacion" (change)="updateFechaVerificacion($event)">
           <span class="error" *ngIf="getErrorMessage('liberacion') != ''">{{getErrorMessage('liberacion')}}</span>
         </div>
         <div class="input">
-          <span><label for="revision">Fecha Revisión</label></span>
-          <input type="date" name="revision" formControlName="verificacion">
-          <span class="error"></span>
+          <span><label for="verificacion">Fecha Revisión</label></span>
+          <input [ngClass]="{'error': getErrorMessage('verificacion')}" type="date" name="verificacion"
+            formControlName="verificacion">
+          <span class="error" *ngIf="getErrorMessage('verificacion') != ''">{{getErrorMessage('verificacion')}}</span>
         </div>
       </form>
     </div>
     <div class="footer">
       <button class="reiniciar" (click)="reiniciar()">Reiniciar</button>
-      <button class="enviar" [disabled]="!form.valid" (click)="enviar()">Enviar</button>
+      <button class="enviar" *ngIf="!update" [disabled]="!form.valid" (click)="enviar()">Enviar</button>
+      <button class="enviar" *ngIf="update" [disabled]="!form.valid" (click)="actualizar()">Actualizar</button>
     </div>
   </div>
 </div>

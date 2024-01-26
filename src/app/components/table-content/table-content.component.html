@@ -29,7 +29,8 @@
         </td>
         <td class="t-data t-content t-align-left"><span>{{producto.date_release | date:'dd/MM/yyyy'}}</span></td>
         <td class="t-data t-content t-align-left"><span>{{producto.date_revision | date:'dd/MM/yyyy'}}</span></td>
-        <td class="t-data t-content"> <app-contextual-menu (onDelete)="deleteItem(producto)" /> </td>
+        <td class="t-data t-content"> <app-contextual-menu (onEdit)="editProduct(producto)"
+            (onDelete)="deleteItem(producto)" /> </td>
       </tr>
     </tbody>
   </table>

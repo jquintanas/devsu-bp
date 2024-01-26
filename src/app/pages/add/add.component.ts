@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { ProductoFinancieroRequest } from 'src/app/core/interfaces/producto.inteface';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ProductoFinancieroListar, ProductoFinancieroRequest } from 'src/app/core/interfaces/producto.inteface';
 import { BancaService } from 'src/app/core/services/banca.service';
 import { CoreService } from 'src/app/core/services/core.service';
 
@@ -14,6 +14,11 @@ export class AddComponent implements OnInit {
   //#region public variables
   public form!: FormGroup;
   public minDay = "";
+  public update = false;
+  //#endregion
+
+  //#region private variables
+  private dataForm!: ProductoFinancieroListar;
   //#endregion
 
   constructor(
@@ -21,15 +26,56 @@ export class AddComponent implements OnInit {
     private banca: BancaService,
     private core: CoreService,
     private router: Router
-  ) { }
+  ) {
+    const params = this.router.getCurrentNavigation()?.extras.state;
+    const data: any = params ? params['data'] : null;
+    this.dataForm = data;
+  }
 
   //#region angular life cycle
   ngOnInit() {
-    this.buildForm();
+    if (this.router.url == "/add") {
+      this.buildForm();
+    } else if (this.router.url == "/edit" && this.dataForm) {
+      this.buildFormWithData();
+      this.update = true;
+    } else {
+      this.core.showAlert("Error, vista no configurada.");
+      this.router.navigateByUrl("/home");
+    }
   }
   //#endregion
 
   //#region public methods
+  public actualizar() {
+    this.core.showLoading();
+    const revision = this.form.get("verificacion")?.value;
+    const id = this.form.get("id")?.value;
+    const { description, liberacion, name, logo } = this.form.value;
+    const body: ProductoFinancieroRequest = {
+      id,
+      description,
+      logo,
+      name,
+      date_release: liberacion,
+      date_revision: revision
+    }
+    this.banca.updateProducto(body).subscribe(
+      {
+        next: () => {
+          this.core.showAlert("Se actualizo el producto correctamente.");
+          this.core.hideLoading();
+          this.router.navigateByUrl("/home");
+        },
+        error: err => {
+          console.error(err);
+          this.core.hideLoading();
+          this.core.showAlert("Error al actualizar el producto.")
+        }
+      }
+    );
+  }
+
   public enviar() {
     this.core.showLoading();
     const { id, description, liberacion, name, logo } = this.form.value;
@@ -61,7 +107,11 @@ export class AddComponent implements OnInit {
   }
 
   public reiniciar() {
-    this.buildForm();
+    if (this.router.url == "/add") {
+      this.buildForm();
+      return;
+    }
+    this.buildFormWithData();
   }
 
   public getErrorMessage(controlName: string) {
@@ -123,11 +173,34 @@ export class AddComponent implements OnInit {
     this.minDay = this.formatDateToString(now);
   }
 
+  private buildFormWithData() {
+    let nowDate = "";
+    let nextDate = this.formatDateToString(this.dataForm.date_revision);
+    if (this.dataForm.date_release >= new Date()) {
+      nowDate = this.formatDateToString(this.dataForm.date_release);
+    } else {
+      nextDate = "";
+    }
+    this.form = this.fb.group(
+      {
+        id: new FormControl({ value: this.dataForm.id, disabled: true }, [Validators.required, Validators.minLength(3), Validators.maxLength(10)]),
+        name: new FormControl(this.dataForm.name, [Validators.required, Validators.minLength(5), Validators.maxLength(100)]),
+        description: new FormControl(this.dataForm.description, [Validators.required, Validators.minLength(10), Validators.maxLength(200)]),
+        logo: new FormControl(this.dataForm.logo, [Validators.required, Validators.pattern(/^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})+([/\w .-]*)*\/?$/)]),
+        liberacion: new FormControl(nowDate, [Validators.required]),
+        verificacion: new FormControl({ value: nextDate, disabled: true }, [Validators.required])
+      }
+    );
+    Object.keys(this.form.controls).forEach(e => {
+      this.form.get(e)?.markAsTouched();
+    });
+    this.minDay = this.formatDateToString(new Date());
+  }
+
   private insertProducto(body: ProductoFinancieroRequest) {
     this.banca.insertProducto(body).subscribe(
       {
-        next: resp => {
-          this.buildForm();
+        next: () => {
           this.core.hideLoading();
           this.router.navigateByUrl("/home");
         },

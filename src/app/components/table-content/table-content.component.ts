@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, inject, signal } from '@angular/core';
+import { Router } from '@angular/router';
 import { ProductoFinancieroListar } from 'src/app/core/interfaces/producto.inteface';
 import { BancaService } from 'src/app/core/services/banca.service';
 import { CoreService } from 'src/app/core/services/core.service';
@@ -12,6 +13,7 @@ export class TableContentComponent implements OnChanges {
   //#region angular injetions
   private core = inject(CoreService);
   private banca = inject(BancaService);
+  private router = inject(Router);
   //#endregion
 
   //#region angular communication component
@@ -74,6 +76,10 @@ export class TableContentComponent implements OnChanges {
         error: () => sub.unsubscribe()
       }
     );
+  }
+
+  public editProduct(producto: ProductoFinancieroListar) {
+    this.router.navigateByUrl("/edit", { state: { data: producto } });
   }
   //#endregion
 
