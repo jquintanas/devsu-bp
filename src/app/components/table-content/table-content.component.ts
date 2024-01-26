@@ -64,7 +64,7 @@ export class TableContentComponent implements OnChanges {
   public deleteItem(producto: ProductoFinancieroListar) {
     this.core.tituloProducto = producto.name;
     this.core.showModal();
-    this.core.subModalData().pipe(take(1)).subscribe(
+    this.core.subModalData().subscribe(
       {
         next: data => {
           if (data) {
