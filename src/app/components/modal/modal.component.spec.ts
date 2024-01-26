@@ -26,4 +26,11 @@ describe('ModalComponent', () => {
     component.cancelModal();
     expect(coreSpy).toHaveBeenCalled();
   });
+
+  it('confirm', () => {
+    const core = TestBed.inject(CoreService);
+    const coreSpy = spyOn(core, 'nextModalState');
+    component.confirm();
+    expect(coreSpy).toHaveBeenCalled();
+  });
 });

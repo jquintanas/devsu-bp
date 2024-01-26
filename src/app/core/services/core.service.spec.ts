@@ -1,5 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-
 import { CoreService } from './core.service';
 import { Observable } from 'rxjs';
 import { ModalDismiss } from '../interfaces/modal.interface';
@@ -57,6 +56,39 @@ describe('CoreService', () => {
       const data: ModalDismiss = { status: "Ok" };
       service.nextModalState(data);
       expect(service['modalData'].value).toEqual(data);
+    });
+
+    it('return observable data modal', () => {
+      const subModal = service.subModalData();
+      expect(subModal).toBeInstanceOf(Observable);
+      expect(subModal).toEqual(service['modalData'].asObservable());
+    });
+
+  });
+
+
+
+  describe('alert', () => {
+
+    it('show Alert', () => {
+      const message = "Test message 1";
+      const div = document.createElement("div");
+      div.id = "snackbar";
+      document.body.appendChild(div);
+      const snackbar: any = document.getElementById("snackbar");
+      service.showAlert(message);
+      expect(snackbar.innerText).toBe(message);
+      document.body.removeChild(div);
+    });
+
+    it('hide alert', () => {
+      const message = "Test message 2";
+      const div = document.createElement("div");
+      div.id = "snackbar";
+      document.body.appendChild(div);
+      const setTimeoutSpy = spyOn(window, 'setTimeout');
+      service.showAlert(message);
+      expect(setTimeoutSpy).toHaveBeenCalled();
     });
   });
 });

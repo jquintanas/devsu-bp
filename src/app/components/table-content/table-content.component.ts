@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
+import { take } from 'rxjs';
 import { ProductoFinancieroListar } from 'src/app/core/interfaces/producto.inteface';
 import { BancaService } from 'src/app/core/services/banca.service';
 import { CoreService } from 'src/app/core/services/core.service';
@@ -63,19 +64,16 @@ export class TableContentComponent implements OnChanges {
   public deleteItem(producto: ProductoFinancieroListar) {
     this.core.tituloProducto = producto.name;
     this.core.showModal();
-    const sub: any = this.core.subModalData().subscribe(
+    this.core.subModalData().pipe(take(1)).subscribe(
       {
         next: data => {
           if (data) {
             if (data.status == "Ok") {
               this.deleteItemService(producto.id);
             }
-            sub.unsubscribe();
           }
-        },
-        error: () => sub.unsubscribe()
-      }
-    );
+        }
+      });
   }
 
   public editProduct(producto: ProductoFinancieroListar) {

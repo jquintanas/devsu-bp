@@ -16,11 +16,11 @@ const routes: Routes = [
     path: "edit",
     component: AddComponent
   },
-  {
-    path: '',
-    redirectTo: '/home',
-    pathMatch: 'full'
-  }
+  // {
+  //   path: '',
+  //   redirectTo: '/home',
+  //   pathMatch: 'full'
+  // }
 ];
 
 @NgModule({

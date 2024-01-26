@@ -30,6 +30,7 @@ export class AddComponent implements OnInit {
     const params = this.router.getCurrentNavigation()?.extras.state;
     const data: any = params ? params['data'] : null;
     this.dataForm = data;
+    this.buildForm();
   }
 
   //#region angular life cycle

@@ -6,6 +6,7 @@ import { BancaService } from 'src/app/core/services/banca.service';
 import { CoreService } from 'src/app/core/services/core.service';
 import { Router } from '@angular/router';
 import { of, throwError } from 'rxjs';
+import { ProductoFinancieroListar } from 'src/app/core/interfaces/producto.inteface';
 
 describe('AddComponent', () => {
   let component: AddComponent;
@@ -25,17 +26,65 @@ describe('AddComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('reiniciar form', () => {
-    const spyBuildForm = spyOn(component as any, 'buildForm');
-    component.reiniciar();
-    expect(spyBuildForm).toHaveBeenCalled();
+  describe('reiniciar form', () => {
+    it('add route', () => {
+      const router = {
+        url: "/add"
+      };
+      const c: any = component;
+      c.router = router;
+      const spyBuildForm = spyOn(c, 'buildForm');
+      component.reiniciar();
+      expect(spyBuildForm).toHaveBeenCalled();
+    });
+
+    it('edit route', () => {
+      const router = {
+        url: "/edit"
+      };
+      const c: any = component;
+      c.router = router;
+      const spyBuildForm = spyOn(c, 'buildFormWithData');
+      component.reiniciar();
+      expect(spyBuildForm).toHaveBeenCalled();
+    });
+
   });
 
-  it('on init', () => {
-    const spyBuildForm = spyOn(component as any, 'buildForm');
-    component.ngOnInit();
-    expect(spyBuildForm).toHaveBeenCalled();
+  describe('on init', () => {
+    it('add', () => {
+      const router = {
+        url: "/add"
+      };
+      const c: any = component;
+      c.router = router;
+      const spyBuildForm = spyOn(c, 'buildForm');
+      component.ngOnInit();
+      expect(spyBuildForm).toHaveBeenCalled();
+    });
+
+    it("edit", () => {
+      const router = {
+        url: "/edit",
+        navigateByUrl: () => console.log(1)
+      };
+      const c: any = component;
+      c.router = router;
+      const data: ProductoFinancieroListar = {
+        date_release: new Date(),
+        date_revision: new Date(),
+        description: "",
+        id: "",
+        logo: "",
+        name: ""
+      }
+      c.dataForm = data;
+      component.ngOnInit();
+      expect(component.update).toEqual(true);
+    });
   });
+
+
 
   describe('Get error message', () => {
     it('sin errores', () => {
@@ -145,7 +194,50 @@ describe('AddComponent', () => {
       expect(spyLoading).toHaveBeenCalled();
     });
 
-  })
+  });
 
+  describe('update fecha verificacion', () => {
+    it('select date', () => {
+      const event = {
+        target: {
+          value: "2024-01-01"
+        }
+      };
+      component.updateFechaVerificacion(event);
+      const verificacion = component.form.get("verificacion")?.value;
+      expect(verificacion).toEqual("2025-01-01");
 
+    });
+
+    it('edit date', () => {
+      const event = {
+        target: {
+          value: ""
+        }
+      };
+      component.updateFechaVerificacion(event);
+      const verificacion = component.form.get("verificacion")?.value;
+      expect(verificacion).toEqual("");
+    });
+  });
+
+  describe('update data', () => {
+    it('call service ok', () => {
+      const banca = TestBed.inject(BancaService);
+      spyOn(banca, 'updateProducto').and.returnValue(of({}));
+      const router = TestBed.inject(Router);
+      const spy = spyOn(router, 'navigateByUrl');
+      component.actualizar();
+      expect(spy).toHaveBeenCalledWith("/home");
+    });
+
+    it('call service error', () => {
+      const banca = TestBed.inject(BancaService);
+      spyOn(banca, 'updateProducto').and.returnValue(throwError(() => { throw new Error("error") }));
+      const core = TestBed.inject(CoreService);
+      const spy = spyOn(core, 'showAlert');
+      component.actualizar();
+      expect(spy).toHaveBeenCalled();
+    });
+  });
 });

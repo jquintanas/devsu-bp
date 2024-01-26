@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, take } from 'rxjs';
 import { ModalDismiss } from '../interfaces/modal.interface';
 
 @Injectable({
@@ -56,6 +56,7 @@ export class CoreService {
       div.classList = "show"
       div.innerText = message;
       setTimeout(() => {
+        div.innerText = '';
         div.className = div.className.replace("show", "");
       }, 4000);
     }

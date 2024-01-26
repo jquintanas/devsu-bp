@@ -8,6 +8,7 @@ import { BancaService } from 'src/app/core/services/banca.service';
 import { of, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { ProductoFinancieroListar } from 'src/app/core/interfaces/producto.inteface';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -55,6 +56,31 @@ describe('HomeComponent', () => {
       component.ngOnInit();
       expect(error).toHaveBeenCalled();
       expect(coreSpy).toHaveBeenCalled();
+    });
+
+    it("date string", () => {
+      const mockResponse: any[] = [
+        {
+          date_release: "2024-01-01",
+          date_revision: "2024-01-01",
+          id: "",
+          name: "",
+          description: "",
+          logo: ""
+        }
+      ];
+      const banca = TestBed.inject(BancaService);
+      spyOn(banca, 'getAllProductos').and.returnValue(of(mockResponse));
+      component.ngOnInit();
+      const validData: any[] = [{
+        date_release: new Date(2024, 0, 1),
+        date_revision: new Date(2024, 0, 1),
+        id: "",
+        name: "",
+        description: "",
+        logo: ""
+      }];
+      expect(component.productos()).toEqual(validData)
     });
   });
 
